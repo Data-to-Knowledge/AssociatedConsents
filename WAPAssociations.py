@@ -15,6 +15,8 @@ import pandas as pd
 import pdsql
 from datetime import datetime, timedelta, date
 import networkx as nx
+import os
+
 
 ##############################################################################
 ### Set Variables
@@ -22,8 +24,15 @@ import networkx as nx
 
 ReportName= 'WAP Allocation Calculator'
 RunDate = str(date.today())
+
 EarliestTermination = '2018-07-01'
 LatestGivenEffect = '2019-07-01'
+
+ConsentStatus = ['Terminated - Replaced',
+                           'Issued - Active',
+                           'Issued - s124 Continuance'] 
+
+output_path = r"D:\\Implementation Support\\Python Scripts\\scripts\\Export\\"
 
 
 ##############################################################################
@@ -47,9 +56,7 @@ ConsentDetailsColNames = {
         }
 ConsentDetailsImportFilter = {
        'B1_PER_SUB_TYPE' : ['Water Permit (s14)'] ,
-       'B1_APPL_STATUS' : ['Terminated - Replaced',
-                           'Issued - Active',
-                           'Issued - s124 Continuance']      
+       'B1_APPL_STATUS' : ConsentStatus     
         }
 ConsentDetailswhere_op = 'AND'
 ConsentDetailsDate_col = 'toDate'
@@ -191,6 +198,7 @@ AssociatedConsents = AssociatedConsents[[
 ##############################################################################
 ### Output results
 ##############################################################################
-AssociatedConsents.to_csv(
-        r'D:\\Implementation Support\\Python Scripts\\scripts\\Import\\'+
-        'AssociatedConsents' + RunDate + '.csv', index=False)
+
+AssociatedConsents.to_csv(os.path.join(output_path, 
+                                       'AssociatedConsents-WAP_' + 
+                                       RunDate + '.csv'))

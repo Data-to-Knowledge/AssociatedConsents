@@ -7,6 +7,19 @@ Created on Tue Sep 24 14:19:52 2019
 
 
 ##############################################################################
+### Import Packages
+##############################################################################
+
+import numpy as np
+import pandas as pd
+from datetime import datetime, timedelta, date
+import random
+import pdsql
+import networkx as nx
+import os
+
+
+##############################################################################
 ### Set Variables
 ##############################################################################
 
@@ -15,6 +28,7 @@ RunDate = str(date.today())
 EarliestTermination = '2018-07-01'
 LatestGivenEffect = '2019-07-01'
 
+output_path = r"D:\\Implementation Support\\Python Scripts\\scripts\\Export\\"
 
 ##############################################################################
 ### Import Data
@@ -196,6 +210,7 @@ AssociatedConsents = AssociatedConsents[[
 ##############################################################################
 ### Output results
 ##############################################################################
-AssociatedConsents.to_csv(
-        r'D:\\Implementation Support\\Python Scripts\\scripts\\Import\\'+
-        'AssociatedConsents' + RunDate + '.csv', index=False)
+
+AssociatedConsents.to_csv(os.path.join(output_path, 
+                                       'AssociatedConsents-ECWAP_' + 
+                                       RunDate + '.csv'))
